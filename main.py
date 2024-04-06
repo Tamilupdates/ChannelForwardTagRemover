@@ -30,12 +30,13 @@ async def start_command(bot, update):
 
 @bot.on_message(filters.channel & filters.forwarded)
 async def fwdrmv(c, m):
+    parse_mode = "markdown"
     try:
         if m.media and not (m.video_note or m.sticker):
-            await m.copy(m.chat.id, caption=m.caption if m.caption else None, parse_mode="markdown")
+            await m.copy(m.chat.id, caption=m.caption if m.caption else None, parse_mode=parse_mode)
             await m.delete()
         else:
-            await m.copy(m.chat.id, parse_mode="markdown")
+            await m.copy(m.chat.id, parse_mode=parse_mode)
             await m.delete()
     except FloodWait as e:
         await asyncio.sleep(e.x)
@@ -44,9 +45,9 @@ async def fwdrmv(c, m):
 async def fwdrm(c, m):
     try:
         if m.media and not (m.video_note or m.sticker):
-            await m.copy(m.chat.id, caption=m.caption if m.caption else None, parse_mode="markdown")
+            await m.copy(m.chat.id, caption=m.caption if m.caption else None, parse_mode=parse_mode)
         else:
-            await m.copy(m.chat.id, parse_mode="markdown")
+            await m.copy(m.chat.id, parse_mode=parse_mode)
     except FloodWait as e:
         await asyncio.sleep(e.x)
 
