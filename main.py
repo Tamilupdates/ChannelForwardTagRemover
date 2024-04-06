@@ -20,7 +20,7 @@ START_TXT = """
 
 START_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('Source Code', url='https://t.me/BOT_USERNAME?startchannel=&admin=manage_chat'),
+        InlineKeyboardButton('Add Channel', url='https://t.me/BOT_USERNAME?startchannel=&admin=manage_chat'),
         ]]
     )
 
