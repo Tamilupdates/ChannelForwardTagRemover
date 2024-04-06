@@ -4,6 +4,7 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import FloodWait
 from html import escape
+from pyrogram.types import MessageEntity
 
 bot = Client(
     "Remove FwdTag",
