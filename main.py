@@ -3,6 +3,7 @@ import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import FloodWait
+import html
 
 bot = Client(
     "Remove FwdTag",
@@ -28,11 +29,14 @@ async def start_command(bot, update):
         reply_markup=reply_markup
     )
 
+def get_html_safe_caption(caption):
+    return html.escape(caption)
+
 @bot.on_message(filters.channel & filters.forwarded)
 async def fwdrmv(c, m):
     try:
         if m.media and not (m.video_note or m.sticker):
-            new_caption = f"<b>{m.caption}</b>" if m.caption else None
+            new_caption = f"{get_html_safe_caption(m.caption)}" if m.caption else None
             await m.copy(m.chat.id, caption=new_caption)
             await m.delete()
         else:
@@ -45,7 +49,7 @@ async def fwdrmv(c, m):
 async def fwdrm(c, m):
     try:
         if m.media and not (m.video_note or m.sticker):
-            new_caption = f"<b>{m.caption}</b>" if m.caption else None
+            new_caption = f"{get_html_safe_caption(m.caption)}" if m.caption else None
             await m.copy(m.chat.id, caption=new_caption)
         else:
             await m.copy(m.chat.id)
