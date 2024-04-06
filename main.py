@@ -20,7 +20,7 @@ async def start_command(bot, update):
     bot_name = (await bot.get_me()).username
     text = START_TXT.format(update.from_user.mention)
     reply_markup = InlineKeyboardMarkup(
-        [[InlineKeyboardButton('Add Channel', url=f'https://t.me/{bot_name}?startchannel=&admin=post_messages')]]
+        [[InlineKeyboardButton('Add Channel', url=f'https://t.me/{bot_name}?startchannel=&admin=post_messages+edit_messages+delete_messages')]]
     )
     await update.reply_text(
         text=text,
