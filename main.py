@@ -11,11 +11,7 @@ bot = Client(
     api_hash=os.environ["API_HASH"]
 )
 
-#BOT_USERNAME = os.environ["BOT_USERNAME"]
-me = bot.get_me()
-bot_username = me.username
-print("Bot Username:", bot_username)
-
+# Define global variables
 START_TXT = """
 <b>Hi {}, \nI'm Channel Forward Tag Remover bot.\n\nForward me some messages, I will remove forward tag from them.\nAlso can do it in channels.</b>
 """
@@ -24,6 +20,7 @@ START_BTN = InlineKeyboardMarkup(
         [[InlineKeyboardButton('Add Channel', url='https://t.me/{}?startchannel=&admin=post_messages'.format(bot_username))]]
     )
 
+# Event handler for /start command
 @bot.on_message(filters.command(["start"]))
 async def start(bot, update):
     text = START_TXT.format(update.from_user.mention)
@@ -34,6 +31,7 @@ async def start(bot, update):
         reply_markup=reply_markup
     )
 
+# Event handler for forwarded messages in channels
 @bot.on_message(filters.channel & filters.forwarded)
 async def fwdrmv(c, m):
     try:
@@ -47,6 +45,7 @@ async def fwdrmv(c, m):
     except FloodWait as e:
         await asyncio.sleep(e.x)
 
+# Event handler for messages in private chats or groups
 @bot.on_message(filters.private | filters.group)
 async def fwdrm(c, m):
     try:
@@ -58,4 +57,19 @@ async def fwdrm(c, m):
     except FloodWait as e:
         await asyncio.sleep(e.x)
 
-bot.run()
+# Get bot's username
+async def get_bot_username():
+    me = await bot.get_me()
+    return me.username
+
+# Ensure bot is started before getting username
+async def main():
+    await bot.start()
+    global bot_username
+    bot_username = await get_bot_username()
+    print("Bot Username:", bot_username)
+    await bot.run()
+
+# Run the bot
+if __name__ == "__main__":
+    asyncio.run(main())
