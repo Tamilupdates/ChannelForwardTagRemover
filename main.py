@@ -32,11 +32,10 @@ async def start_command(bot, update):
 async def fwdrmv(c, m):
     try:
         if m.media and not (m.video_note or m.sticker):
-            new_caption = f"<b>{m.caption}</b>\n\n" if m.caption else None
-            await m.copy(m.chat.id, caption=new_caption)
+            await m.copy(m.chat.id, caption=m.caption if m.caption else None, parse_mode='Markdown')
             await m.delete()
         else:
-            await m.copy(m.chat.id)
+            await m.copy(m.chat.id, parse_mode='Markdown')
             await m.delete()
     except FloodWait as e:
         await asyncio.sleep(e.x)
@@ -45,10 +44,9 @@ async def fwdrmv(c, m):
 async def fwdrm(c, m):
     try:
         if m.media and not (m.video_note or m.sticker):
-            new_caption = f"<b>{m.caption}</b>\n\n" if m.caption else None
-            await m.copy(m.chat.id, caption=new_caption)
+            await m.copy(m.chat.id, caption=m.caption if m.caption else None, parse_mode='Markdown')
         else:
-            await m.copy(m.chat.id)
+            await m.copy(m.chat.id, parse_mode='Markdown')
     except FloodWait as e:
         await asyncio.sleep(e.x)
 
