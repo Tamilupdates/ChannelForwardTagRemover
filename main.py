@@ -17,10 +17,9 @@ START_TXT = """
 <b>Hi {}, \nI'm Channel Forward Tag Remover bot.\n\nForward me some messages, I will remove forward tag from them.\nAlso can do it in channels.</b>
 """
 
-
 START_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('Add Channel', url='https://t.me/BOT_USERNAME?startchannel=&admin=manage_chat'),
+        InlineKeyboardButton('Add Channel', url='https://t.me/{}/?start=channel&admin=manage_chat'.format(BOT_USERNAME)),
         ]]
     )
 
