@@ -2,7 +2,6 @@ import os
 import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.constants import ParseMode
 from pyrogram.errors import FloodWait
 
 bot = Client(
@@ -33,10 +32,10 @@ async def start_command(bot, update):
 async def fwdrmv(c, m):
     try:
         if m.media and not (m.video_note or m.sticker):
-            await m.copy(m.chat.id, caption=m.caption if m.caption else None, parse_mode=ParseMode.MARKDOWN)
+            await m.copy(m.chat.id, caption=m.caption if m.caption else None, parse_mode="markdown")
             await m.delete()
         else:
-            await m.copy(m.chat.id, parse_mode=ParseMode.MARKDOWN)
+            await m.copy(m.chat.id, parse_mode="markdown")
             await m.delete()
     except FloodWait as e:
         await asyncio.sleep(e.x)
@@ -45,9 +44,9 @@ async def fwdrmv(c, m):
 async def fwdrm(c, m):
     try:
         if m.media and not (m.video_note or m.sticker):
-            await m.copy(m.chat.id, caption=m.caption if m.caption else None, parse_mode=ParseMode.MARKDOWN)
+            await m.copy(m.chat.id, caption=m.caption if m.caption else None, parse_mode="markdown")
         else:
-            await m.copy(m.chat.id, parse_mode=ParseMode.MARKDOWN)
+            await m.copy(m.chat.id, parse_mode="markdown")
     except FloodWait as e:
         await asyncio.sleep(e.x)
 
