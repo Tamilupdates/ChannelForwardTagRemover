@@ -11,13 +11,23 @@ bot = Client(
     api_hash=os.environ["API_HASH"]
 )
 
+BOT_USERNAME = os.environ["BOT_USERNAME"]
+
 START_TXT = """
-<b>Hi {}, I'm Channel Forward Tag Remover bot.\n\nForward me some messages, I will remove forward tag from them.\nAlso can do it in channels.</b>
+<b>Hi {}, \nI'm Channel Forward Tag Remover bot.\n\nForward me some messages, I will remove forward tag from them.\nAlso can do it in channels.</b>
 """
+
+
+START_BTN = InlineKeyboardMarkup(
+        [[
+        InlineKeyboardButton('Source Code', url='https://t.me/BOT_USERNAME?startchannel=&admin=manage_chat'),
+        ]]
+    )
 
 @bot.on_message(filters.command(["start"]))
 async def start(bot, update):
     text = START_TXT.format(update.from_user.mention)
+    reply_markup = START_BTN
     await update.reply_text(
         text=text,
         disable_web_page_preview=True,
