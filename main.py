@@ -11,7 +11,7 @@ bot = Client(
     api_hash=os.environ["API_HASH"]
 )
 
-BOT_USERNAME = os.environ["BOT_USERNAME"]
+bot_name = os.environ["BOT_USERNAME"]
 
 START_TXT = """
 <b>Hi {}, \nI'm Channel Forward Tag Remover bot.\n\nForward me some messages, I will remove forward tag from them.\nAlso can do it in channels.</b>
@@ -20,7 +20,7 @@ START_TXT = """
 
 START_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('Add Channel', url='https://t.me/BOT_USERNAME?startchannel=&admin=manage_chat'),
+        InlineKeyboardButton('Add Channel', url=f'https://t.me/bot_name?startchannel=&admin=manage_chat'),
         ]]
     )
 
