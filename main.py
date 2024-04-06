@@ -31,12 +31,12 @@ async def start(bot, update):
         reply_markup=reply_markup
     )
 
-async def delete_message(chat, message_id):
+async def delete_message(c, m):
     try:
-        await bot.delete_messages(chat_id=chat, message_ids=message_id)
+        await bot.delete_messages(chat_id=c, message_ids=m)
     except FloodWait as e:
         await asyncio.sleep(e.x)
-        await delete_message(chat, message_id)
+        await delete_message(c, m)
     except Exception as e:
         print(f"Error deleting message: {e}")
 
