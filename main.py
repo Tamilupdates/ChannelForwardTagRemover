@@ -2,7 +2,7 @@ import os
 import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.constants  import ParseMode
+from telegram.constants import ParseMode
 from pyrogram.errors import FloodWait
 
 bot = Client(
