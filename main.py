@@ -1,42 +1,47 @@
-import os, asyncio
+import os
+import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import FloodWait
+from html import escape
 
 bot = Client(
     "Remove FwdTag",
-    bot_token = os.environ["BOT_TOKEN"],
-    api_id = int(os.environ["API_ID"]),
-    api_hash = os.environ["API_HASH"]
+    bot_token=os.environ["BOT_TOKEN"],
+    api_id=int(os.environ["API_ID"]),
+    api_hash=os.environ["API_HASH"]
 )
 
 
 START_TXT = """
-Hi {}, I'm Forward Tag Remover bot.\n\nForward me some messages, i will remove forward tag from them.\nAlso can do it in channels.
+<b>Hi {}, I'm Channel Forward Tag Remover bot.\n\nForward me some messages, I will remove forward tag from them.\nAlso can do it in channels.</b>
 """
-
-START_BTN = InlineKeyboardMarkup(
-        [[
-        InlineKeyboardButton('Source Code', url='https://github.com/samadii/ChannelForwardTagRemover'),
-        ]]
-    )
 
 
 @bot.on_message(filters.command(["start"]))
 async def start(bot, update):
     text = START_TXT.format(update.from_user.mention)
-    reply_markup = START_BTN
     await update.reply_text(
         text=text,
         disable_web_page_preview=True,
-        reply_markup=reply_markup
+        reply_markup=None
     )
+
+
+def parse_html_tags(caption):
+    # Function to parse HTML tags in the caption
+    caption = caption.replace("<b>", "**").replace("</b>", "**")
+    caption = caption.replace("<code>", "`").replace("</code>", "`")
+    return caption
+
 
 @bot.on_message(filters.channel & filters.forwarded)
 async def fwdrmv(c, m):
     try:
         if m.media and not (m.video_note or m.sticker):
-            await m.copy(m.chat.id, caption = m.caption if m.caption else None)
+            # Parse HTML tags in the caption if present
+            caption = parse_html_tags(m.caption)
+            await m.copy(m.chat.id, caption=caption if caption else None)
             await m.delete()
         else:
             await m.copy(m.chat.id)
@@ -49,7 +54,9 @@ async def fwdrmv(c, m):
 async def fwdrm(c, m):
     try:
         if m.media and not (m.video_note or m.sticker):
-            await m.copy(m.chat.id, caption = m.caption if m.caption else None)
+            # Parse HTML tags in the caption if present
+            caption = parse_html_tags(m.caption)
+            await m.copy(m.chat.id, caption=caption if caption else None)
         else:
             await m.copy(m.chat.id)
     except FloodWait as e:
