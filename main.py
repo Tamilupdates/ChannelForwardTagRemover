@@ -18,7 +18,7 @@ START_TXT = """
 """
 
 START_BTN = InlineKeyboardMarkup(
-        [[InlineKeyboardButton('Add Channel', url='https://t.me/{}/?startchannel=&admin=manage_chat'.format(BOT_USERNAME))]]
+        [[InlineKeyboardButton('Add Channel', url='https://t.me/{}/?startchannel=&admin=invite_users+manage_chat'.format(BOT_USERNAME))]]
     )
 
 @bot.on_message(filters.command(["start"]))
