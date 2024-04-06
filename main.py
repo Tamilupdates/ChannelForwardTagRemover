@@ -43,6 +43,7 @@ async def fwdrmv(c, m):
 
 @bot.on_message(filters.private | filters.group)
 async def fwdrm(c, m):
+    parse_mode = "markdown"
     try:
         if m.media and not (m.video_note or m.sticker):
             await m.copy(m.chat.id, caption=m.caption if m.caption else None, parse_mode=parse_mode)
