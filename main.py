@@ -3,7 +3,6 @@ import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import FloodWait
-import re
 
 bot = Client(
     "Remove FwdTag",
@@ -16,10 +15,6 @@ START_TXT = """
 <b>Hi {}, \nI'm Channel Forward Tag Remover bot.\n\nForward me some messages, I will remove forward tag from them.\nAlso can do it in channels.</b>
 """
 
-# Function to replace 'gtlinks.me' with 'go.tamilupdates.workers.dev' using regex
-def replace_link(text):
-    return re.sub(r'\bgtlinks\.me\b', 'go.tamilupdates.workers.dev', text)
-
 @bot.on_message(filters.command(["start"]))
 async def start_command(bot, update):
     bot_name = (await bot.get_me()).username
@@ -28,7 +23,7 @@ async def start_command(bot, update):
         [[InlineKeyboardButton('Add Channel', url=f'https://t.me/{bot_name}?startchannel=&admin=post_messages+edit_messages+delete_messages')]]
     )
     await update.reply_text(
-        text=replace_link(text),  # Applying link replacement here
+        text=text,
         disable_web_page_preview=True,
         reply_markup=reply_markup
     )
@@ -37,7 +32,7 @@ async def start_command(bot, update):
 async def fwdrmv(c, m):
     try:
         if m.media and not (m.video_note or m.sticker):
-            new_caption = f"<b>{replace_link(m.caption)}</b>" if m.caption else None  # Applying link replacement here
+            new_caption = f"<b>{m.caption}</b>" if m.caption else None
             await m.copy(m.chat.id, caption=new_caption)
             await m.delete()
         else:
@@ -50,7 +45,7 @@ async def fwdrmv(c, m):
 async def fwdrm(c, m):
     try:
         if m.media and not (m.video_note or m.sticker):
-            new_caption = f"<b>{replace_link(m.caption)}</b>" if m.caption else None  # Applying link replacement here
+            new_caption = f"<b>{m.caption}</b>" if m.caption else None
             await m.copy(m.chat.id, caption=new_caption)
         else:
             await m.copy(m.chat.id)
