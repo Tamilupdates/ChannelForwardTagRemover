@@ -32,7 +32,16 @@ async def start_command(bot, update):
 async def fwdrmv(c, m):
     try:
         if m.media and not (m.video_note or m.sticker):
-            new_caption = f"<b>{m.caption}</b>" if m.caption else None
+            new_caption = m.caption
+            
+            # Check if the environment variable ONAME is set
+            if os.environ.get("ONAME") and os.environ.get("NNAME"):
+                # Replace ONAME with NNAME in the caption
+                new_caption = new_caption.replace(os.environ["ONAME"], os.environ["NNAME"])
+            
+            # Apply bold tags if there's a caption
+            new_caption = f"<b>{new_caption}</b>" if new_caption else None
+            
             await m.copy(m.chat.id, caption=new_caption)
             await m.delete()
         else:
@@ -45,7 +54,16 @@ async def fwdrmv(c, m):
 async def fwdrm(c, m):
     try:
         if m.media and not (m.video_note or m.sticker):
-            new_caption = f"<b>{m.caption}</b>" if m.caption else None
+            new_caption = m.caption
+            
+            # Check if the environment variable ONAME is set
+            if os.environ.get("ONAME") and os.environ.get("NNAME"):
+                # Replace ONAME with NNAME in the caption
+                new_caption = new_caption.replace(os.environ["ONAME"], os.environ["NNAME"])
+            
+            # Apply bold tags if there's a caption
+            new_caption = f"<b>{new_caption}</b>" if new_caption else None
+            
             await m.copy(m.chat.id, caption=new_caption)
         else:
             await m.copy(m.chat.id)
