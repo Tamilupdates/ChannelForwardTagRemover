@@ -3,6 +3,7 @@ import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import FloodWait
+import re
 
 bot = Client(
     "Remove FwdTag",
@@ -15,8 +16,9 @@ START_TXT = """
 <b>Hi {}, \nI'm Channel Forward Tag Remover bot.\n\nForward me some messages, I will remove forward tag from them.\nAlso can do it in channels.</b>
 """
 
+# Function to replace 'gtlinks.me' with 'go.tamilupdates.workers.dev' using regex
 def replace_link(text):
-    return text.replace('gtlinks.me', 'go.tamilupdates.workers.dev')
+    return re.sub(r'\bgtlinks\.me\b', 'go.tamilupdates.workers.dev', text)
 
 @bot.on_message(filters.command(["start"]))
 async def start_command(bot, update):
