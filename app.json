@@ -1,33 +1,33 @@
 {
-"name": "forward-tag-remover",
-"env": {
-  "BOT_TOKEN": {
-    "description": "Your bot token, as a string.",
-    "value": ""
+  "name": "forward-tag-remover",
+  "env": {
+    "BOT_TOKEN": {
+      "description": "Your bot token, as a string.",
+      "value": ""
+    },
+    "BOT_USERNAME": {
+      "description": "Your bot username without @",
+      "value": ""
+    },
+    "API_ID": {
+      "description": "Get this value from https://my.telegram.org",
+      "value": ""
+    },
+    "API_HASH": {
+      "description": "Get this value from https://my.telegram.org",
+      "value": ""
   },
-  "BOT_USERNAME": {
-    "description": "Your bot username without @",
-    "value": ""
-  },
-  "API_ID": {
-    "description": "Get this value from https://my.telegram.org",
-    "value": ""
-  },
-  "API_HASH": {
-    "description": "Get this value from https://my.telegram.org",
-    "value": ""
-},
-"buildpacks": [
-  {
-    "url": "heroku/python"
-  }
-],
-"formation": {
-    "worker": {
-        "quantity": 1,
-        "size": "Basic"
+  "buildpacks": [
+    {
+      "url": "heroku/python"
     }
-}
+  ],
+  "formation": {
+      "worker": {
+          "quantity": 1,
+          "size": "Standard-2x"
+    }
+  }
 }
 
 
