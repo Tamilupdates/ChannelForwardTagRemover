@@ -1,5 +1,10 @@
 {
-  "name": "forward-tag-remover",
+  "name": "Forward-Tag Remover",
+  "description": "Forward-Tag Remover Bot with Heroku Deploy",
+  "keywords": [
+    "telegram"
+  ],
+  "repository": "https://github.com/Tamilupdates/ChannelForwardTagRemover",
   "env": {
     "BOT_TOKEN": {
       "description": "Your bot token, as a string.",
@@ -29,5 +34,3 @@
     }
   }
 }
-
-
