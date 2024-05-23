@@ -21,16 +21,14 @@
     "API_HASH": {
       "description": "Get this value from https://my.telegram.org",
       "value": ""
-  },
-  "buildpacks": [
-    {
-      "url": "heroku/python"
-    }
-  ],
-  "formation": {
-      "worker": {
-          "quantity": 1,
-          "size": "Standard-2x"
+    },
+    "buildpacks": [{
+        "url": "heroku/python"
+    }],
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "Standard-2x"
     }
   }
 }
